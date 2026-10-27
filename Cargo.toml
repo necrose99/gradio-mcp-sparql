@@ -1,0 +1,22 @@
+[package]
+name = "gradio-mcp-sparql"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[lib]
+name = "kolibrie"
+crate-type = ["cdylib"]
+
+[dependencies]
+# Standardizing PyO3 versioning for Python extension bindings
+pyo3 = { version = "0.20.0", features = ["extension-module", "abi3-py310"] }
+
+# Ingesting downstream dependencies straight from upstream source code
+kolibrie_core = { package = "kolibrie", git = "https://github.com", branch = "main" }
+datalog = { git = "https://github.com", branch = "main" }
+shared = { git = "https://github.com", branch = "main" }
+
+[features]
+default = []
+ml = ["kolibrie_core/ml"]
