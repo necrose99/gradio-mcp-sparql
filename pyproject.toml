@@ -1,0 +1,33 @@
+[build-system]
+requires = ["hatchling", "maturin>=1.0,<2.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "gradio-mcp-sparql"
+version = "0.1.0"
+description = "Generic scaffolding combining Gradio, Open MCP, and native compiled Kolibrie Rust SPARQL engines."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Rust",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence"
+]
+dependencies = [
+    "gradio>=4.0.0",
+    "mcp>=0.1.0",
+    "pandas>=2.0.0",
+    "networkx>=3.0.0",
+    "matplotlib>=3.5.0",
+    "rdflib>=7.0.0"
+]
+
+[tool.hatch.build.targets.wheel]
+backend = "maturin"
+
+[tool.maturin]
+python-source = "src"
+module-name = "gradio_mcp_sparql_scaffold.kolibrie"
+bindings = "pyo3"
+manifest-path = "Cargo.toml"
