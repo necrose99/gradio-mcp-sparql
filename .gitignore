@@ -218,3 +218,17 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ==========================================
+# Rust / Maturin & PyO3 Compilation Artifacts
+# ==========================================
+# Compiled target output folder containing native binaries (.pyd / .so)
+target/
+
+# Cargo locks are typically ignored in library scaffolds to allow upstream flex, 
+# but uncomment the next line if you want strict binary reproducibility:
+# Cargo.lock
+
+# Backup and crash logs
+*.rs.bk
+cargo-timing.html
