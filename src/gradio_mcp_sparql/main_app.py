@@ -74,6 +74,7 @@ with gr.Blocks(title="Gradio MCP SPARQL Extension Node") as extension_dashboard:
 # =====================================================================
 
 if __name__ == "__main__":
+    # Target index 1 to explicitly isolate flag evaluation inputs
     if len(sys.argv) > 1 and sys.argv[1] == "--mcp-only":
         # Run exclusively as a background Open MCP engine pipe
         # asyncio.run(mcp_server.run_stdio_async())
@@ -81,3 +82,4 @@ if __name__ == "__main__":
     else:
         # Launch standard user workspace view over http://127.0.0.1:8181
         extension_dashboard.launch(server_port=8181)
+
