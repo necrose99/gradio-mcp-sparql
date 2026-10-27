@@ -12,10 +12,11 @@ crate-type = ["cdylib"]
 # Standardizing PyO3 versioning for Python extension bindings
 pyo3 = { version = "0.20.0", features = ["extension-module", "abi3-py310"] }
 
-# Ingesting downstream dependencies straight from upstream source code
-kolibrie_core = { package = "kolibrie", git = "https://github.com", branch = "main" }
-datalog = { git = "https://github.com", branch = "main" }
-shared = { git = "https://github.com", branch = "main" }
+# Explicitly mapping sub-crates using git repository subdirectory tracking paths
+kolibrie_core = { package = "kolibrie", git = "https://github.com/StreamIntelligenceLab/Kolibrie.git", branch = "main" }
+datalog = { git = "https://github.com/StreamIntelligenceLab/Kolibrie.git", branch = "main" }
+shared = { git = "https://github.com/StreamIntelligenceLab/Kolibrie.git", branch = "main" }
+
 
 [features]
 default = []
