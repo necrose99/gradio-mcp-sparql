@@ -9,10 +9,10 @@ language_metadata:
   target_family: "Algic"
   primary_focus:
     iso_639_3: "mia"                # Individual active language identifier
-    glottocode: "miam1252"          # Stable Glottolog languoid key
+    glottocode: "miam1252"          # Stable Glottolog languoid key [0.1.9, source: 1]
     wikidata_id: "Q56523"           # Knowledge graph master item entity link
-    endonym: "myaamia"              # Native uncapitalized language designation [0.1.16, source: 1]
-    common_names: ["Miami-Illinois", "Peoria", "Wea"] [0.1.16, source: 1]
+    endonym: "myaamia"              # Native uncapitalized language designation
+    common_names: ["Miami-Illinois", "Peoria", "Wea"] [0.1.9, source: 2]
     authoritative_reconstruction: "Costa 2003"
 
 # Global standardized code ranges for linguistic datasets and schema validation
@@ -30,26 +30,26 @@ authority_standards_registry:
     genealogical_nodes:
       algic: "algi1248"             # Master family node
       algonquian: "algo1256"        # Core Algonquian branch
-      miami_illinois: "miam1252"    # Target dialect cluster node
+      miami_illinois: "miam1252"    # Target dialect cluster node [0.1.9, source: 1]
 
   bibliographic_and_authority_vectors:
     marc21_language_code: "alg"     # Algonquian languages collective grouping code
-    lcsh_authority_id: "sh85084654" # Library of Congress authority record for Miami-Illinois
-    wals_code: "ill"                # World Atlas of Language Structures identifier
+    lcsh_authority_id: "sh85084654" # Library of Congress authority record for Miami-Illinois [0.1.9, source: 2]
+    wals_code: "ill"                # World Atlas of Language Structures identifier [0.1.9, source: 2]
 
 upstream_linguistic_registries:
   - name: "Glottolog Reference Languoid Master Engine"
     base_url: "https://glottolog.org"
     validation_regex: "^[a-z]{4}[0-9]{4}$"
     format_router_templates:
-      base_html: "https://glottolog.org/resource/languoid/id/{glottocode}"
-      interactive_treeview: "https://glottolog.org/resource/languoid/id/{glottocode}.treeview.html"
-      turtle_rdf: "https://glottolog.org/resource/languoid/id/{glottocode}.ttl"
-      triple_nt: "https://glottolog.org/resource/languoid/id/{glottocode}.nt"
-      xml_rdf: "https://glottolog.org/resource/languoid/id/{glottocode}.rdf"
-      raw_json: "https://glottolog.org/resource/languoid/id/{glottocode}.json"
-      newick_phylogenetic: "https://glottolog.org/resource/languoid/id/{glottocode}.newick.txt"
-      phylo_xml: "https://glottolog.org/resource/languoid/id/{glottocode}.phylo.xml"
+      base_html: "https://glottolog.org{glottocode}"
+      interactive_treeview: "https://glottolog.org{glottocode}.treeview.html"
+      turtle_rdf: "https://glottolog.org{glottocode}.ttl"
+      triple_nt: "https://glottolog.org{glottocode}.nt"
+      xml_rdf: "https://glottolog.org{glottocode}.rdf"
+      raw_json: "https://glottolog.org{glottocode}.json"
+      newick_phylogenetic: "https://glottolog.org{glottocode}.newick.txt"
+      phylo_xml: "https://glottolog.org{glottocode}.phylo.xml"
   - name: "Grambank Language Sheet"
     base_url: "https://clld.org"
     format: "turtle"
@@ -64,17 +64,50 @@ upstream_linguistic_registries:
     format: "html"
 
 remote_sparql_endpoints:
-  - identifier: "wikidata-sparql-template"
+  - identifier: "wikidata-main"
     endpoint_url: "https://wikidata.org"
-    url_template: "https://wikidata.org?query={SPARQL}"
-    purpose: "Parameterized macro lookups and validation tracking"
+    purpose: "Broad Anthropological and Geographic Ontological Properties"
+
   - identifier: "kgccc-unito"
     endpoint_url: "https://unito.it"
     purpose: "Cross-Linguistic Translation Mapping (IT/EN)"
     nl_to_sparql_bridge: "liita-nl2sparql"
-  - identifier: "wikidata-main"
-    endpoint_url: "https://wikidata.org"
-    purpose: "Broad Anthropological and Geographic Ontological Properties"
+
+  - identifier: "nfdi4culture"
+    endpoint_url: "https://nfdi4culture.de/sparql"
+    purpose: "Cultural Heritage and Humanities Research Knowledge Graphs"
+
+  - identifier: "dbpedia-global"
+    endpoint_url: "http://dbpedia.org/sparql"
+    interfaces:
+      isparql: "http://dbpedia.org/isparql"
+      snorql: "http://dbpedia.org/snorql"
+
+  - identifier: "dbpedia-japan"
+    endpoint_url: "http://ja.dbpedia.org/sparql"
+    purpose: "Regionalized Japanese Language Wiki Extracted Knowledge Graphs"
+
+  - identifier: "cordis-europa"
+    endpoint_url: "https://cordis.europa.eu/datalab/sparql-endpoint"
+    purpose: "European Commission Research and Development Framework Datasets"
+
+  - identifier: "estat-japan"
+    endpoint_url: "http://data.e-stat.go.jp/lod/sparql/alldata/query"
+    purpose: "Japanese Government National Census and Economic Statistics LOD Core"
+    syntax: "SPARQL 1.1"
+
+  - identifier: "ndl-authorities"
+    endpoint_url: "http://id.ndl.go.jp/auth/ndla"
+    purpose: "National Diet Library Web Authorities Name/Subject Graphs"
+
+upstream_bulk_dump_directories:
+  - name: "DBpedia 2016-10 Link Manifests"
+    root_directory: "http://downloads.dbpedia.org/2016-10/links/"
+  - name: "DBpedia 2016-10 Core Datasets"
+    root_directory: "http://downloads.dbpedia.org/2016-10/core/"
+    target_ttl_archives:
+      - "http://downloads.dbpedia.org/2016-10/core-i18n/en/instance_types_lhd_dbo_en.ttl.bz2"
+      - "http://downloads.dbpedia.org/2016-10/core-i18n/en/instance_types_lhd_ext_en.ttl.bz2"
 
 mcp_server:
   engine: "kolibrie-rust-wrapper"
@@ -242,7 +275,7 @@ algic_language_registry:
     subfamily: "Algonquian"
     glottocode: "miam1252"
     iso: "mia"
-    wals: "mia"
+    wals: "mia" [0.1.9, source: 2]
   sac:
     name: "Meskwaki (Fox)"
     group: "Central"
@@ -282,78 +315,3 @@ algic_language_registry:
     wals: "abw"
   aaq:
     name: "Eastern Abnaki"
-    group: "Eastern"
-    subfamily: "Algonquian"
-    glottocode: "east2542"
-    iso: "aaq"
-    wals: "abe"
-  mal:
-    name: "Maliseet-Passamaquoddy"
-    group: "Eastern"
-    subfamily: "Algonquian"
-    glottocode: "mali1279"
-    iso: "mal"
-    wals: "mal"
-  moo:
-    name: "Mohegan-Pequot"
-    group: "Eastern"
-    subfamily: "Algonquian"
-    glottocode: "mohe1244"
-    iso: "moo"
-    wals: "moh"
-  mua:
-    name: "Munsee"
-    group: "Eastern"
-    subfamily: "Algonquian"
-    glottocode: "muns1251"
-    iso: "mua"
-    wals: "del"
-  unm:
-    name: "Unami"
-    group: "Eastern"
-    subfamily: "Algonquian"
-    glottocode: "unam1242"
-    iso: "unm"
-    wals: "del"
-
-  # === WESTERN OUTLIERS ===
-  yur:
-    name: "Yurok"
-    group: "Western"
-    subfamily: "Ritwan (CA)"
-    glottocode: "yuro1248"
-    iso: "yur"
-    wals: "yur"
-  wiy:
-    name: "Wiyot"
-    group: "Western"
-    subfamily: "Ritwan (CA)"
-    glottocode: "wiyo1248"
-    iso: "wiy"
-    wals: "wiy"
-
-  # === REMNANT / UNATTESTED ===
-  bue:
-    name: "Beothuk"
-    group: "Remnant"
-    subfamily: "Algonquian"
-    glottocode: "beot1247"
-    iso: "bue"
-    wals: "beo"
-  etc:
-    name: "Etchemin"
-    group: "Remnant"
-    subfamily: "Algonquian"
-    glottocode: "etc2543"
-    iso: "etc"
-    wals: "etc"
-  xlo:
-    name: "Loup A"
-    group: "Remnant"
-    subfamily: "Algonquian"
-    glottocode: "loup1244"
-    iso: "xlo"
-    wals: "lpa"
-  xlb:
-    name: "Loup B"
-    group: "Remnant"
