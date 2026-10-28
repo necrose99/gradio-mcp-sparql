@@ -275,7 +275,8 @@ algic_language_registry:
     subfamily: "Algonquian"
     glottocode: "miam1252"
     iso: "mia"
-    wals: "mia" [0.1.9, source: 2]
+    wals: "mia" # [0.1.9, source: 2]
+
   sac:
     name: "Meskwaki (Fox)"
     group: "Central"
