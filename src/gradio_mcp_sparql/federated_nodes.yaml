@@ -9,11 +9,11 @@ language_metadata:
   target_family: "Algic"
   primary_focus:
     iso_639_3: "mia"                # Individual active language identifier
-    glottocode: "miam1252"          # Stable Glottolog languoid key [0.1.9, source: 1]
+    glottocode: "miam1252"          # Stable Glottolog languoid key
     wikidata_id: "Q56523"           # Knowledge graph master item entity link
     endonym: "myaamia"              # Native uncapitalized language designation
-    common_names: ["Miami-Illinois", "Peoria", "Wea"] [0.1.9, source: 2]
     authoritative_reconstruction: "Costa 2003"
+
 
 # Global standardized code ranges for linguistic datasets and schema validation
 authority_standards_registry:
