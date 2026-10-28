@@ -1,0 +1,359 @@
+# federated_nodes.yaml
+# Dynamic multi-format serialization lookup matrix for gradio-mcp-sparql 
+
+# =====================================================================
+# GRADIO-MCP-SPARQL FEDERATED METADATA MATRIX & AUTHORITY STANDARDS
+# =====================================================================
+
+language_metadata:
+  target_family: "Algic"
+  primary_focus:
+    iso_639_3: "mia"                # Individual active language identifier
+    glottocode: "miam1252"          # Stable Glottolog languoid key
+    wikidata_id: "Q56523"           # Knowledge graph master item entity link
+    endonym: "myaamia"              # Native uncapitalized language designation [0.1.16, source: 1]
+    common_names: ["Miami-Illinois", "Peoria", "Wea"] [0.1.16, source: 1]
+    authoritative_reconstruction: "Costa 2003"
+
+# Global standardized code ranges for linguistic datasets and schema validation
+authority_standards_registry:
+  iso_639:
+    part_1: "alpha-2 codes for major world languages (e.g., 'en', 'fr', 'it')"
+    part_2_B: "alpha-3 bibliographic codes (e.g., 'eng', 'fre', 'ita')"
+    part_2_T: "alpha-3 terminological codes (e.g., 'eng', 'fra', 'ita')"
+    part_3: "alpha-3 comprehensive coverage of individual languages (e.g., 'mia', 'cre', 'ojw')"
+    part_5: "alpha-3 codes for language families and groups (e.g., 'alg' for Algonquian)"
+  
+  glottolog:
+    format: "alph4123 alphanumeric unique stable identifiers"
+    macro_areas: ["North America", "South America", "Eurasia", "Africa", "Papunesia", "Australia"]
+    genealogical_nodes:
+      algic: "algi1248"             # Master family node
+      algonquian: "algo1256"        # Core Algonquian branch
+      miami_illinois: "miam1252"    # Target dialect cluster node
+
+  bibliographic_and_authority_vectors:
+    marc21_language_code: "alg"     # Algonquian languages collective grouping code
+    lcsh_authority_id: "sh85084654" # Library of Congress authority record for Miami-Illinois
+    wals_code: "ill"                # World Atlas of Language Structures identifier
+
+upstream_linguistic_registries:
+  - name: "Glottolog Reference Languoid Master Engine"
+    base_url: "https://glottolog.org"
+    validation_regex: "^[a-z]{4}[0-9]{4}$"
+    format_router_templates:
+      base_html: "https://glottolog.org/resource/languoid/id/{glottocode}"
+      interactive_treeview: "https://glottolog.org/resource/languoid/id/{glottocode}.treeview.html"
+      turtle_rdf: "https://glottolog.org/resource/languoid/id/{glottocode}.ttl"
+      triple_nt: "https://glottolog.org/resource/languoid/id/{glottocode}.nt"
+      xml_rdf: "https://glottolog.org/resource/languoid/id/{glottocode}.rdf"
+      raw_json: "https://glottolog.org/resource/languoid/id/{glottocode}.json"
+      newick_phylogenetic: "https://glottolog.org/resource/languoid/id/{glottocode}.newick.txt"
+      phylo_xml: "https://glottolog.org/resource/languoid/id/{glottocode}.phylo.xml"
+  - name: "Grambank Language Sheet"
+    base_url: "https://clld.org"
+    format: "turtle"
+  - name: "Wikidata Entity Endpoint"
+    base_url: "https://wikidata.org"
+    format: "turtle"
+  - name: "Endangered Languages Project"
+    catalog_id: 1924
+    uri: "https://endangeredlanguages.com"
+  - name: "SIL ISO 639-3 Documentation"
+    base_url: "https://sil.org"
+    format: "html"
+
+remote_sparql_endpoints:
+  - identifier: "wikidata-sparql-template"
+    endpoint_url: "https://wikidata.org"
+    url_template: "https://wikidata.org?query={SPARQL}"
+    purpose: "Parameterized macro lookups and validation tracking"
+  - identifier: "kgccc-unito"
+    endpoint_url: "https://unito.it"
+    purpose: "Cross-Linguistic Translation Mapping (IT/EN)"
+    nl_to_sparql_bridge: "liita-nl2sparql"
+  - identifier: "wikidata-main"
+    endpoint_url: "https://wikidata.org"
+    purpose: "Broad Anthropological and Geographic Ontological Properties"
+
+mcp_server:
+  engine: "kolibrie-rust-wrapper"
+  plugin_type: "sparql_scaffolding"
+  reference_tables:
+    - name: "English"
+      iso_639_1: "en"
+      iso_639_3: "eng"
+      sparql_filter: "FILTER(LANG(?obj) = 'en')"
+    - name: "Spanish"
+      iso_639_1: "es"
+      iso_639_3: "spa"
+      sparql_filter: "FILTER(LANG(?obj) = 'es')"
+    - name: "Mandarin Chinese"
+      iso_639_1: "zh"
+      iso_639_3: "cmn"
+      sparql_filter: "FILTER(LANG(?obj) = 'zh')"
+    - name: "Hindi"
+      iso_639_1: "hi"
+      iso_639_3: "hin"
+      sparql_filter: "FILTER(LANG(?obj) = 'hi')"
+    - name: "Arabic"
+      iso_639_1: "ar"
+      iso_639_3: "ara"
+      sparql_filter: "FILTER(LANG(?obj) = 'ar')"
+    - name: "Japanese"
+      iso_639_1: "ja"
+      iso_639_3: "jpn"
+      sparql_filter: "FILTER(LANG(?obj) = 'ja')"
+    - name: "French"
+      iso_639_1: "fr"
+      iso_639_3: "fra"
+      sparql_filter: "FILTER(LANG(?obj) = 'fr')"
+    - name: "German"
+      iso_639_1: "de"
+      iso_639_3: "deu"
+      sparql_filter: "FILTER(LANG(?obj) = 'de')"
+    - name: "Russian"
+      iso_639_1: "ru"
+      iso_639_3: "rus"
+      sparql_filter: "FILTER(LANG(?obj) = 'ru')"
+    - name: "Portuguese"
+      iso_639_1: "pt"
+      iso_639_3: "por"
+      sparql_filter: "FILTER(LANG(?obj) = 'pt')"
+    - name: "Latin"
+      iso_639_1: "la"
+      iso_639_3: "lat"
+      sparql_filter: "FILTER(LANG(?obj) = 'la')"
+    - name: "Sanskrit"
+      iso_639_1: "sa"
+      iso_639_3: "san"
+      sparql_filter: "FILTER(LANG(?obj) = 'sa')"
+
+algic_language_registry:
+  # === PLAINS ===
+  bft:
+    name: "Blackfoot"
+    group: "Plains"
+    subfamily: "Algonquian"
+    glottocode: "siks1238"
+    iso: "bla"
+    wals: "blk"
+    features:
+      77A: "No grammatical evidentials"
+      129A: "Different"
+      130A: "Different"
+  arp:
+    name: "Arapaho"
+    group: "Plains"
+    subfamily: "Algonquian"
+    glottocode: "arap1274"
+    iso: "arp"
+    wals: "ara"
+    features:
+      77A: "No grammatical evidentials"
+      129A: "Identical"
+      130A: "Different"
+  ats:
+    name: "Gros Ventre"
+    group: "Plains"
+    subfamily: "Algonquian"
+    glottocode: "gros1243"
+    iso: "ats"
+    wals: "ats"
+  chy:
+    name: "Cheyenne"
+    group: "Plains"
+    subfamily: "Algonquian"
+    glottocode: "chey1247"
+    iso: "chy"
+    wals: "chy"
+
+  # === CENTRAL ===
+  men:
+    name: "Menominee"
+    group: "Central"
+    subfamily: "Algonquian"
+    glottocode: "meno1252"
+    iso: "mez"
+    wals: "men"
+  cre:
+    name: "Cree"
+    group: "Central"
+    subfamily: "Algonquian"
+    glottocode: "cree1272"
+    iso: "cre"
+    wals: "cre"
+  csw:
+    name: "Swampy Cree"
+    group: "Central"
+    subfamily: "Algonquian"
+    glottocode: "swam1239"
+    iso: "csw"
+    wals: "crs"
+  crj:
+    name: "Southern East Cree"
+    group: "Central"
+    subfamily: "Algonquian"
+    glottocode: "sout2971"
+    iso: "crj"
+    wals: "cre"
+  atj:
+    name: "Atikamekw"
+    group: "Central"
+    subfamily: "Algonquian"
+    glottocode: "atik1240"
+    iso: "atj"
+    wals: "atk"
+  pot:
+    name: "Potawatomi"
+    group: "Central"
+    subfamily: "Algonquian"
+    glottocode: "pota1247"
+    iso: "pot"
+    wals: "pot"
+  oji:
+    name: "Ojibwe"
+    group: "Central"
+    subfamily: "Algonquian"
+    glottocode: "ojib1240"
+    iso: "oji"
+    wals: "oji"
+  otw:
+    name: "Ottawa"
+    group: "Central"
+    subfamily: "Algonquian"
+    glottocode: "otta1242"
+    iso: "otw"
+    wals: "ott"
+  ciw:
+    name: "Chippewa"
+    group: "Central"
+    subfamily: "Algonquian"
+    glottocode: "chip1241"
+    iso: "ciw"
+    wals: "oJM"
+    features:
+      77A: "Indirect only"
+      129A: "Different"
+      130A: "Different"
+  mia:
+    name: "Miami-Illinois"
+    group: "Central"
+    subfamily: "Algonquian"
+    glottocode: "miam1252"
+    iso: "mia"
+    wals: "mia"
+  sac:
+    name: "Meskwaki (Fox)"
+    group: "Central"
+    subfamily: "Algonquian"
+    glottocode: "mesq1242"
+    iso: "sac"
+    wals: "fox"
+  kic:
+    name: "Kickapoo"
+    group: "Central"
+    subfamily: "Algonquian"
+    glottocode: "kick1244"
+    iso: "kic"
+    wals: "kic"
+  sjw:
+    name: "Shawnee"
+    group: "Central"
+    subfamily: "Algonquian"
+    glottocode: "shaw1249"
+    iso: "sjw"
+    wals: "shw"
+
+  # === EASTERN ===
+  mic:
+    name: "Mi'kmaq"
+    group: "Eastern"
+    subfamily: "Algonquian"
+    glottocode: "mikm1235"
+    iso: "mic"
+    wals: "mic"
+  abe:
+    name: "Western Abenaki"
+    group: "Eastern"
+    subfamily: "Algonquian"
+    glottocode: "west2629"
+    iso: "abe"
+    wals: "abw"
+  aaq:
+    name: "Eastern Abnaki"
+    group: "Eastern"
+    subfamily: "Algonquian"
+    glottocode: "east2542"
+    iso: "aaq"
+    wals: "abe"
+  mal:
+    name: "Maliseet-Passamaquoddy"
+    group: "Eastern"
+    subfamily: "Algonquian"
+    glottocode: "mali1279"
+    iso: "mal"
+    wals: "mal"
+  moo:
+    name: "Mohegan-Pequot"
+    group: "Eastern"
+    subfamily: "Algonquian"
+    glottocode: "mohe1244"
+    iso: "moo"
+    wals: "moh"
+  mua:
+    name: "Munsee"
+    group: "Eastern"
+    subfamily: "Algonquian"
+    glottocode: "muns1251"
+    iso: "mua"
+    wals: "del"
+  unm:
+    name: "Unami"
+    group: "Eastern"
+    subfamily: "Algonquian"
+    glottocode: "unam1242"
+    iso: "unm"
+    wals: "del"
+
+  # === WESTERN OUTLIERS ===
+  yur:
+    name: "Yurok"
+    group: "Western"
+    subfamily: "Ritwan (CA)"
+    glottocode: "yuro1248"
+    iso: "yur"
+    wals: "yur"
+  wiy:
+    name: "Wiyot"
+    group: "Western"
+    subfamily: "Ritwan (CA)"
+    glottocode: "wiyo1248"
+    iso: "wiy"
+    wals: "wiy"
+
+  # === REMNANT / UNATTESTED ===
+  bue:
+    name: "Beothuk"
+    group: "Remnant"
+    subfamily: "Algonquian"
+    glottocode: "beot1247"
+    iso: "bue"
+    wals: "beo"
+  etc:
+    name: "Etchemin"
+    group: "Remnant"
+    subfamily: "Algonquian"
+    glottocode: "etc2543"
+    iso: "etc"
+    wals: "etc"
+  xlo:
+    name: "Loup A"
+    group: "Remnant"
+    subfamily: "Algonquian"
+    glottocode: "loup1244"
+    iso: "xlo"
+    wals: "lpa"
+  xlb:
+    name: "Loup B"
+    group: "Remnant"
